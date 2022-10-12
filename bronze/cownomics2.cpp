@@ -1,6 +1,14 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+int to_num(char c) {
+	if (c == 'A') return 0;
+	else if (c == 'C') return 1;
+	else if (c == 'G') return 2;
+	else if (c == 'T') return 3;
+	else return -1;
+}
+
 int main() {
 	freopen("cownomics.in", "r", stdin);
 	freopen("cownomics.out", "w", stdout);
@@ -15,14 +23,18 @@ int main() {
 		for (int j = i+1; j < M; j++) {
 			for (int k = j+1; k < M; k++) {
 				int dup = 0;
-				set<string> sp;
+				vector<int> chk(64);
 				for (auto el : spotty) {
-					string s = string() + el[i] + el[j] + el[k];
-					sp.insert(s);
+					int s = 16 * to_num(el[i])
+						+ 4 * to_num(el[j])
+						+ to_num(el[k]);
+					chk[s] = 1;
 				}
 				for (auto el : clean) {
-					string s = string() + el[i] + el[j] + el[k];
-					if (sp.count(s)) {
+					int s = 16 * to_num(el[i])
+						+ 4 * to_num(el[j])
+						+ to_num(el[k]);
+					if (chk[s]) {
 						dup = 1;
 						break;
 					}
