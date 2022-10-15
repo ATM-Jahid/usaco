@@ -18,14 +18,16 @@ int main() {
 
 	int ans = n;
 	vector<int> q(4);
+	int low = n/3, high = (2*n)/3 + 1;
+
 	int a = xsr[0].first;
-	for (int i = 0; i < n; i++) {
+	for (int i = low; i < high; i++) {
 		if (xsr[i].first == a) continue;
 		else {
 			q[1] = i; q[0] = n - i;
 			q[2] = 0; q[3] = 0;
 			int b = ysr[0].first;
-			for (int j = 0 ; j < n; j++) {
+			for (int j = 0 ; j < high; j++) {
 				if (ysr[j].first == b) {
 					if (ysr[j].second <= a) {
 						q[1]--;
