@@ -29,21 +29,21 @@ int main() {
 	int meds = 0;
 	for (int m = 1; m < M+1; m++) {
 		int bad = 1;
-		vector<int> sick(N+1);
+		vector<int> drank(N+1);
 		for (auto ev : events) {
 			if (ev.milk == m) {
-				sick[ev.person] = 1;
+				drank[ev.person] = 1;
 			} else if (ev.milk == -1) {
-				if(sick[ev.person] == 0) {
+				if(drank[ev.person] == 0) {
 					bad = 0;
 					break;
 				}
 			}
 		}
 		if (bad) {
-			int run = 0;
-			for (auto el : sick) run += el;
-			meds = max(meds, run);
+			int cum = 0;
+			for (auto el : drank) cum += el;
+			meds = max(meds, cum);
 		}
 	}
 
