@@ -41,12 +41,9 @@ vector<int> subtract(vector<int> base, vector<int> comp, int N) {
 	for (int i = 0; i < N*N; i++) {
 		if (comp[i] == 1) {
 			base[i] += 2;
-		}
-	}
-
-	for (int i = 0; i < N*N; i++) {
-		if (base[i] == 3) {
-			base[i] = 0;
+			if (base[i] == 3) {
+				base[i] = 0;
+			}
 		}
 	}
 
