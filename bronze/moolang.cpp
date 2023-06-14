@@ -21,7 +21,6 @@ int solve() {
 
 	int N = nouns.size(), T = t_verbs.size(),
 		I = i_verbs.size(), J = junctions.size();
-	int tv_to_use, iv_to_use;
 
 	J = (J > P) ? P : J;
 	vector<int> tmp = {P+J, T+I, N};
