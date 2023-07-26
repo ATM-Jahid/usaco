@@ -2,8 +2,8 @@
 
 for ((i = 1; i <= 1000; i++)); do
 	echo $i
-	./gen $i > art.in
+	./gen $i > paintbarn.in
 	./A
 	./B
-	diff -w art.out art2.out || break
+	diff -w paintbarn.out paintbarn2.out || break
 done

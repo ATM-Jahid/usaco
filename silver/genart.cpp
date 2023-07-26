@@ -8,8 +8,8 @@ int main(int argc, char *argv[]) {
 	srand(atoi(argv[1]));
 	for (int colo = 1; colo <= N*N; colo++) {
 		int a, b, A, B;
-		a = rand() % 9 + 1; b = a + rand() % (10 - a);
-		A = rand() % 9 + 1; B = A + rand() % (10 - A);
+		a = rand() % 9 + 1; A = a + rand() % (10 - a);
+		b = rand() % 9 + 1; B = b + rand() % (10 - b);
 		for (int i = a; i <= A; i++) {
 			for (int j = b; j <= B; j++) {
 				canvas[i][j] = colo;
