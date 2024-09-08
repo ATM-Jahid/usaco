@@ -10,28 +10,22 @@ int main() {
 
 	ll mod = 1e9 + 7;
 	for (int k = n-1; k > 0; k--) {
-		priority_queue<ll, vector<ll>, greater<ll>> pq;
-		int l = 0, r = k;
-		ll uplim = jar[0] + jar[k] + 1;
-		while (l < r) {
-			if (jar[l] + jar[r] < uplim) {
-				for (int p = l+1; p < r+1; p++) {
-					pq.push(jar[l] + jar[p]);
-				}
-				l++;
-				uplim = jar[l] + jar[r];
-			} else {
-				r--;
-			}
+		priority_queue<array<ll, 3>> pq;
+		vector<ll> nx;
+		for (int i = 0; i < k; i++) {
+			pq.push({-jar[i]-jar[i+1], i, i+1});
 		}
 		for (int i = 0; i < k; i++) {
-			jar[i] = pq.top();
+			ll v = pq.top()[0], l = pq.top()[1], r = pq.top()[2];
+			nx.push_back(-v);
 			pq.pop();
+			if (r+1 < jar.size()) pq.push({-jar[l]-jar[r+1], l, r+1});
 		}
-		ll quotient = jar[0] / mod;
+		ll quotient = nx[0] / mod;
 		for (int i = 0; i < k; i++) {
-			jar[i] -= quotient * mod;
+			nx[i] -= quotient * mod;
 		}
+		jar = nx;
 	}
 
 	cout << jar[0] << endl;
