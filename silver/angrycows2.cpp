@@ -21,7 +21,7 @@ int main() {
 		int ind = 0;
 		while (bloc < arr[n-1]) {
 			while (ind+1 < n && arr[ind+1] <= bloc + power) ind++;
-			if (arr[ind] == bloc) {
+			if (arr[ind] <= bloc) {
 				return false;
 			}
 			bloc = arr[ind];

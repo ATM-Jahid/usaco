@@ -14,34 +14,45 @@ double min_power(double lo, double hi, function<bool(double)> fn) {
 }
 
 int main() {
-	// ifstream cin("angry.in");
-	// ofstream cout("angry.out");
+	ifstream fin("angry.in");
+	ofstream fout("angry.out");
 
-	int n; cin >> n;
+	int n; fin >> n;
 	vector<int> x(n);
-	for (auto &el : x) cin >> el;
+	for (auto &el : x) fin >> el;
 	sort(begin(x), end(x));
 
-	vector<int> to_right(n), to_left(n);
+	vector<int> to_left(n), to_right(n);
 
-	// not correct
-	for (int i = n-2; i >= 0; i--) {
-		to_right[i] = max(to_right[i+1] + 1, x[i+1] - x[i]);
+	for (int i = 0; i < n-1; i++) {
+		int rad = to_left[i] + 1, nxt = i+1;
+		if (x[nxt] - x[i] > rad) {
+			to_left[nxt] = x[nxt] - x[i];
+		} else {
+			while (nxt < n && x[nxt] - x[i] <= rad) {
+				to_left[nxt] = rad;
+				nxt++;
+			}
+			if (nxt == n) break;
+			else i = nxt-2;
+		}
 	}
 
-	// not correct
-	for (int i = 1; i < n; i++) {
-		to_left[i] = max(to_left[i-1] + 1, x[i] - x[i-1]);
+	for (int i = n-1; i > 0; i--) {
+		int rad = to_right[i] + 1, pre = i-1;
+		if (x[i] - x[pre] > rad) {
+			to_right[pre] = x[i] - x[pre];
+		} else {
+			while (pre >= 0 && x[i] - x[pre] <= rad) {
+				to_right[pre] = rad;
+				pre--;
+			}
+			if (pre < 0) break;
+			else i = pre+2;
+		}
 	}
 
-	// for (auto &el : x) cout << el << ' ';
-	// cout << endl;
-	// for (auto &el : to_right) cout << el << ' ';
-	// cout << endl;
-	// for (auto &el : to_left) cout << el << ' ';
-	// cout << endl;
-
-	double ans = min_power(0.0, double(x[n-1]-x[0]), [&](double power) {
+	double ans = min_power(0.0, double(x[n-1] - x[0]), [&](double power) {
 		int l, r;
 		for (l = 0; l < n-1; l++) {
 			if (double(to_left[l]) > max(0.0, power - 1.0)) {
@@ -56,11 +67,11 @@ int main() {
 		}
 		r++;
 
-		if (r <= l || x[r]-x[l] <= 2.0 * power) return true;
+		if (r <= l || x[r] - x[l] <= 2.0 * power) return true;
 		else return false;
 	});
 
-	cout << fixed << setprecision(1) << ans << endl;
+	fout << fixed << setprecision(1) << ans << endl;
 
 	return 0;
 }
